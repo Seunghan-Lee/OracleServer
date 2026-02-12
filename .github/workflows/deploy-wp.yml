@@ -1,0 +1,38 @@
+name: Deploy WordPress Stacks
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'oci-os/docker/peterosea-wp/**'
+      - 'oci-os/docker/heworks-blog/**'
+      - 'sites/peterosea-wp/**'
+      - 'sites/heworks-blog/**'
+      - '.github/workflows/deploy-wp.yml'
+  workflow_dispatch:
+    inputs:
+      stack:
+        description: "Stack to deploy"
+        required: false
+        default: "peterosea-wp"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set stack name
+        run: echo "STACK=${{ github.event.inputs.stack || 'peterosea-wp' }}" >> $GITHUB_ENV
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/stacks/${{ env.STACK }}
+            docker compose pull
+            docker compose up -d

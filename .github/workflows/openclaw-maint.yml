@@ -1,0 +1,25 @@
+name: OpenClaw Maintenance
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action to perform"
+        required: false
+        default: "redeploy"
+
+jobs:
+  maint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run remote command
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/stacks/openclaw
+            docker compose pull
+            docker compose up -d

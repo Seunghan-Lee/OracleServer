@@ -1,0 +1,19 @@
+# Environment files
+*.env
+*.env.local
+*.env.production
+
+# Node/build outputs
+sites/heworks-static/node_modules
+sites/heworks-static/dist
+
+# macOS
+.DS_Store
+
+# Backups and dumps
+backups/
+*.sql
+*.tar.gz
+
+# OCI artifacts
+oci-keys/

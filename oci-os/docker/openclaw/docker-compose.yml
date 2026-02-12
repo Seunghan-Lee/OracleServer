@@ -1,0 +1,19 @@
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:${OPENC_PORT:-8090}:8080"
+    volumes:
+      - data:/var/lib/openclaw
+    networks:
+      - backend
+
+volumes:
+  data:
+
+networks:
+  backend:
+    driver: bridge

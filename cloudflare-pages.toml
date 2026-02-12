@@ -1,0 +1,4 @@
+name = "heworks-static"
+root = "sites/heworks-static"
+command = "npm run build"
+build_output = "dist"
