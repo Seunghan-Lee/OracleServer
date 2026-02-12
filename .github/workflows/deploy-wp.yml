@@ -3,12 +3,12 @@ name: Deploy WordPress Stacks
 on:
   push:
     branches: ["main"]
-    paths:
-      - 'oci-os/docker/peterosea-wp/**'
-      - 'oci-os/docker/heworks-blog/**'
-      - 'sites/peterosea-wp/**'
-      - 'sites/heworks-blog/**'
-      - '.github/workflows/deploy-wp.yml'
+    # paths:
+    #   - 'oci-os/docker/peterosea-wp/**'
+    #   - 'oci-os/docker/heworks-blog/**'
+    #   - 'sites/peterosea-wp/**'
+    #   - 'sites/heworks-blog/**'
+    #   - '.github/workflows/deploy-wp.yml'
   workflow_dispatch:
     inputs:
       stack:
