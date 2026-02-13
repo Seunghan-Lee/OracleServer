@@ -30,7 +30,8 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_HOME', '${WP_HOME}');
         define('WP_SITEURL', '${WP_SITEURL}');
-        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+        $forwarded_proto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? null;
+        if ($forwarded_proto !== null && $forwarded_proto === 'https') {
           $_SERVER['HTTPS'] = 'on';
         }
     volumes:
