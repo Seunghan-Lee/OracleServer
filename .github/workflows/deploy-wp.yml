@@ -47,8 +47,16 @@ jobs:
             git reset --hard origin/main
 
             sudo mkdir -p /opt/stacks/$STACK
-            sudo rsync -av --delete "$REPO_DIR/oci-os/docker/$STACK/" "/opt/stacks/$STACK/"
-
+            # .env 파일을 백업 (존재하는 경우)
+            if [ -f "/opt/stacks/$STACK/.env" ]; then
+              sudo cp "/opt/stacks/$STACK/.env" "/opt/stacks/$STACK/.env.backup"
+            fi
+            # rsync에서 .env 파일 제외하여 기존 .env 파일 보존
+            sudo rsync -av --delete --exclude='.env' "$REPO_DIR/oci-os/docker/$STACK/" "/opt/stacks/$STACK/"
+            # 백업한 .env 파일 복원
+            if [ -f "/opt/stacks/$STACK/.env.backup" ]; then
+              sudo mv "/opt/stacks/$STACK/.env.backup" "/opt/stacks/$STACK/.env"
+            fi
             # .env 파일이 없으면 .env.example에서 복사
             if [ ! -f "/opt/stacks/$STACK/.env" ] && [ -f "$REPO_DIR/oci-os/docker/$STACK/.env.example" ]; then
               sudo cp "$REPO_DIR/oci-os/docker/$STACK/.env.example" "/opt/stacks/$STACK/.env"
