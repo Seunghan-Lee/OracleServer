@@ -30,10 +30,6 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_HOME', '${WP_HOME}');
         define('WP_SITEURL', '${WP_SITEURL}');
-        $forwarded_proto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? null;
-        if ($forwarded_proto !== null && $forwarded_proto === 'https') {
-          $_SERVER['HTTPS'] = 'on';
-        }
     volumes:
       - ../../sites/heworks-blog/wp-content:/var/www/html/wp-content
     ports:

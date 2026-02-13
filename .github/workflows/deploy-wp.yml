@@ -49,6 +49,13 @@ jobs:
             sudo mkdir -p /opt/stacks/$STACK
             sudo rsync -av --delete "$REPO_DIR/oci-os/docker/$STACK/" "/opt/stacks/$STACK/"
 
+            # .env 파일이 없으면 .env.example에서 복사
+            if [ ! -f "/opt/stacks/$STACK/.env" ] && [ -f "$REPO_DIR/oci-os/docker/$STACK/.env.example" ]; then
+              sudo cp "$REPO_DIR/oci-os/docker/$STACK/.env.example" "/opt/stacks/$STACK/.env"
+              sudo chmod 600 "/opt/stacks/$STACK/.env"
+              echo "Created .env from .env.example - please update with actual values!"
+            fi
+
             if [ -d "$REPO_DIR/sites/$STACK" ]; then
               sudo mkdir -p /opt/sites/$STACK
               sudo rsync -av --delete "$REPO_DIR/sites/$STACK/" "/opt/sites/$STACK/"
