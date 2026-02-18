@@ -2,7 +2,7 @@
 set -euo pipefail
 ROOT_DIR=$(cd "$(dirname "$0")"/.. && pwd)
 
-for dir in oci-os/docker/peterosea-wp oci-os/docker/heworks-blog oci-os/docker/openclaw; do
+for dir in oci-os/docker/peterosea-wp oci-os/docker/he-blogs oci-os/docker/openclaw; do
   if [ -f "$ROOT_DIR/$dir/.env.example" ]; then
     target="$ROOT_DIR/$dir/.env"
     if [ -f "$target" ]; then

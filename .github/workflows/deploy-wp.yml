@@ -5,9 +5,9 @@ on:
     branches: ["main"]
     # paths:
     #   - 'oci-os/docker/peterosea-wp/**'
-    #   - 'oci-os/docker/heworks-blog/**'
+    #   - 'oci-os/docker/he-blogs/**'
     #   - 'sites/peterosea-wp/**'
-    #   - 'sites/heworks-blog/**'
+    #   - 'sites/he-blogs/**'
     #   - '.github/workflows/deploy-wp.yml'
   workflow_dispatch:
     inputs:

@@ -31,7 +31,7 @@ services:
         define('WP_HOME', '${WP_HOME}');
         define('WP_SITEURL', '${WP_SITEURL}');
     volumes:
-      - ../../sites/heworks-blog/wp-content:/var/www/html/wp-content
+      - ../../sites/he-blogs/wp-content:/var/www/html/wp-content
     ports:
       - "127.0.0.1:${WP_LOCAL_PORT:-8082}:80"
     networks:
